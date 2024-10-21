@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from enum import Enum
 from datetime import date, datetime
+from typing import Optional
 
 
 class TripType(str, Enum):
@@ -36,3 +37,25 @@ class AgentAPIResponse(BaseModel):
     status: str
     agent_response: str
     timestamp: datetime = Field(default_factory=datetime.now)
+
+class RecommendationRequest(BaseModel):
+    object: str
+    preferences: Optional[list[str]] = Field(None)
+
+class ReservationRequest(BaseModel):
+    origin: str
+    destination: str
+    date: str
+
+class HotelReservationRequest(BaseModel):
+    checkin_date: str
+    checkout_date: str
+    hotel: str
+    city: str
+
+class RestaurantReservationRequest(BaseModel):
+    date: str
+    time: str
+    restaurant: str
+    city: str
+    dish: Optional[str] = Field(None)
